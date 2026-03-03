@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.41.2.15936",
-      "templateHash": "5312039253740575517"
+      "templateHash": "5374328728940438170"
     }
   },
   "parameters": {
@@ -377,9 +377,13 @@
             "script": "DSCInstallWindowsFeatures.ps1",
             "function": "InstallWindowsFeatures"
           }
-        }
+        },
+        "dependsOn": [
+          "[reference(resourceId('Microsoft.Compute/virtualMachines/extensions', parameters('HostVirtualMachineName'), 'downloadMigrationScript'), '2025-04-01', 'full')]"
+        ]
       },
       "dependsOn": [
+        "[resourceId('Microsoft.Compute/virtualMachines/extensions', parameters('HostVirtualMachineName'), 'downloadMigrationScript')]",
         "[resourceId('Microsoft.Compute/virtualMachines', parameters('HostVirtualMachineName'))]"
       ]
     },
@@ -419,10 +423,14 @@
         "autoUpgradeMinorVersion": true,
         "settings": {
           "commandToExecute": "powershell -ExecutionPolicy Unrestricted -Command \"Start-Service BITS -ErrorAction SilentlyContinue; Start-BitsTransfer -Source https://software-static.download.prss.microsoft.com/dbazure/2019DC-20348.1.fe_release.210507-1500-HLK.vhdx -Destination C:\\Foo.vhdx\""
-        }
+        },
+        "dependsOn": [
+          "[reference(resourceId('Microsoft.Compute/virtualMachines/extensions', parameters('HostVirtualMachineName'), 'HVHOSTSetup'), '2021-03-01', 'full')]"
+        ]
       },
       "dependsOn": [
-        "[resourceId('Microsoft.Compute/virtualMachines', parameters('HostVirtualMachineName'))]"
+        "[resourceId('Microsoft.Compute/virtualMachines', parameters('HostVirtualMachineName'))]",
+        "[resourceId('Microsoft.Compute/virtualMachines/extensions', parameters('HostVirtualMachineName'), 'HVHOSTSetup')]"
       ]
     },
     {
