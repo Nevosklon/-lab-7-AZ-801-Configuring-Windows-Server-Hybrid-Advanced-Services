@@ -5,13 +5,13 @@
     "_generator": {
       "name": "bicep",
       "version": "0.41.2.15936",
-      "templateHash": "16327602249767005347"
+      "templateHash": "7137650535730180864"
     }
   },
   "parameters": {
     "_artifactsLocation": {
       "type": "string",
-      "defaultValue": "http://raw.githubusercontent.com/azure/azure-quickstart-templates/master/demos/nested-vms-in-virtual-network",
+      "defaultValue": "http://raw.githubusercontent.com/azure/azure-quickstart-templates/master/demos/nested-vms-in-virtual-network/",
       "metadata": {
         "description": "The base URI where artifacts required by this template are located including a trailing '/'"
       }
