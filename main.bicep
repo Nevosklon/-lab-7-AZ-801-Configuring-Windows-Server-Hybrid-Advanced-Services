@@ -367,7 +367,7 @@ resource DownloadVMs 'Microsoft.Compute/virtualMachines/extensions@2025-04-01' =
     }
   }
   dependsOn: [
-    hostVmSetupExtension
+    hostVm
   ]
 }
 resource DownloadMigrationPrepScript 'Microsoft.Compute/virtualMachines/extensions@2025-04-01' = {
@@ -384,7 +384,7 @@ resource DownloadMigrationPrepScript 'Microsoft.Compute/virtualMachines/extensio
     }
   }
   dependsOn: [
-    hostVmSetupExtension
+    hostVm
   ]
 }
 
