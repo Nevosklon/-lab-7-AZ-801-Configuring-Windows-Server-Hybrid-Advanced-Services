@@ -1,5 +1,5 @@
 @description('The base URI where artifacts required by this template are located including a trailing \'/\'')
-param _artifactsLocation string = 'http://raw.githubusercontent.com/azure/azure-quickstart-templates/master/demos/nested-vms-in-virtual-network'
+param _artifactsLocation string = 'http://raw.githubusercontent.com/azure/azure-quickstart-templates/master/demos/nested-vms-in-virtual-network/'
 
 @description('The sasToken required to access _artifactsLocation.  When the template is deployed using the accompanying scripts, a sasToken will be automatically generated. Use the defaultValue if the staging location is not secured.')
 @secure()
