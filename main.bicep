@@ -330,10 +330,10 @@ resource vmExtension 'Microsoft.Compute/virtualMachines/extensions@2021-03-01' =
         function: 'InstallWindowsFeatures'
       }
     }
-    dependsOn: [
-      DownloadMigrationPrepScript      
-    ]
   }
+  dependsOn: [
+    DownloadMigrationPrepScript      
+  ]
 }
 
 resource hostVmSetupExtension 'Microsoft.Compute/virtualMachines/extensions@2021-03-01' = {
@@ -368,10 +368,10 @@ resource DownloadVMs 'Microsoft.Compute/virtualMachines/extensions@2025-04-01' =
     settings: {
       commandToExecute: 'powershell -ExecutionPolicy Unrestricted -Command "Start-Service BITS -ErrorAction SilentlyContinue; Start-BitsTransfer -Source https://software-static.download.prss.microsoft.com/dbazure/2019DC-20348.1.fe_release.210507-1500-HLK.vhdx -Destination C:\\Foo.vhdx"'
     }
-    dependsOn: [
-      hostVmSetupExtension      
-    ]
   }
+  dependsOn: [
+    hostVmSetupExtension      
+  ]
 }
 resource DownloadMigrationPrepScript 'Microsoft.Compute/virtualMachines/extensions@2025-04-01' = {
   parent: hostVm
