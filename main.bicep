@@ -366,9 +366,6 @@ resource DownloadVMs 'Microsoft.Compute/virtualMachines/extensions@2025-04-01' =
       commandToExecute: 'powershell -ExecutionPolicy Unrestricted -Command "Start-Service BITS -ErrorAction SilentlyContinue; Start-BitsTransfer -Source https://software-static.download.prss.microsoft.com/dbazure/2019DC-20348.1.fe_release.210507-1500-HLK.vhdx -Destination C:\\Foo.vhdx"'
     }
   }
-  dependsOn: [
-    hostVm
-  ]
 }
 resource DownloadMigrationPrepScript 'Microsoft.Compute/virtualMachines/extensions@2025-04-01' = {
   parent: hostVm
@@ -383,9 +380,6 @@ resource DownloadMigrationPrepScript 'Microsoft.Compute/virtualMachines/extensio
       commandToExecute: 'powershell -ExecutionPolicy Unrestricted -Command "Start-Service BITS -ErrorAction SilentlyContinue; New-Item -ItemType Directory -Path C:\\Labfiles\\Lab07 -Force; Start-BitsTransfer -Source https://download.microsoft.com/download/A/B/E/ABE61299-7626-4902-93C1-631B19DBD106/MicrosoftAzureMigrate-Hyper-V.ps1 -Destination C:\\Labfiles\\Lab07\\MicrosoftAzureMigrate-Hyper-V.ps1"'
     }
   }
-  dependsOn: [
-    hostVm
-  ]
 }
 
 resource AllowRulesRDP 'Microsoft.Network/networkSecurityGroups/securityRules@2023-05-01' = [
