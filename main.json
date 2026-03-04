@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.41.2.15936",
-      "templateHash": "14334212117390335269"
+      "templateHash": "16348232174739566224"
     }
   },
   "parameters": {
@@ -413,7 +413,7 @@
       "location": "[parameters('location')]",
       "properties": {
         "source": {
-          "script": "Start-Service BITS -ErrorAction SilentlyContinue; Start-BitsTransfer -Source https://software-static.download.prss.microsoft.com/dbazure/2019DC-20348.1.fe_release.210507-1500-HLK.vhdx -Destination C:\\Foo.vhdx\""
+          "script": "Start-Service BITS -ErrorAction SilentlyContinue; Start-BitsTransfer -Source https://software-static.download.prss.microsoft.com/dbazure/2019DC-20348.1.fe_release.210507-1500-HLK.vhdx -Destination C:\\Foo.vhdx"
         }
       },
       "dependsOn": [
