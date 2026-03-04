@@ -331,9 +331,6 @@ resource vmExtension 'Microsoft.Compute/virtualMachines/extensions@2021-03-01' =
       }
     }
   }
-  dependsOn: [
-    DownloadMigrationPrepScript      
-  ]
 }
 
 resource hostVmSetupExtension 'Microsoft.Compute/virtualMachines/extensions@2021-03-01' = {
@@ -352,38 +349,27 @@ resource hostVmSetupExtension 'Microsoft.Compute/virtualMachines/extensions@2021
       commandToExecute: 'powershell -ExecutionPolicy Unrestricted -File HVHostSetup.ps1 -NIC1IPAddress ${createNic1.outputs.assignedIp} -NIC2IPAddress ${createNic2.outputs.assignedIp} -GhostedSubnetPrefix ${ghostedSubnetPrefix} -VirtualNetworkPrefix ${virtualNetworkAddressPrefix}'
     }
   }
-  dependsOn: [
-    vmExtension
-  ]
 }
-resource DownloadVMs 'Microsoft.Compute/virtualMachines/extensions@2025-04-01' = {
+
+resource DownloadVMs  'Microsoft.Compute/virtualMachines/runCommands@2025-04-01' = {
   parent: hostVm
   name: 'downloadVHDFile'
   location: location
+
   properties: {
-    publisher: 'Microsoft.Compute'
-    type: 'CustomScriptExtension'
-    typeHandlerVersion: '1.10'
-    autoUpgradeMinorVersion: true
-    settings: {
-      commandToExecute: 'powershell -ExecutionPolicy Unrestricted -Command "Start-Service BITS -ErrorAction SilentlyContinue; Start-BitsTransfer -Source https://software-static.download.prss.microsoft.com/dbazure/2019DC-20348.1.fe_release.210507-1500-HLK.vhdx -Destination C:\\Foo.vhdx"'
+    source: {
+      script: 'Start-Service BITS -ErrorAction SilentlyContinue; Start-BitsTransfer -Source https://software-static.download.prss.microsoft.com/dbazure/2019DC-20348.1.fe_release.210507-1500-HLK.vhdx -Destination C:\\Foo.vhdx"'
     }
   }
-  dependsOn: [
-    hostVmSetupExtension      
-  ]
 }
-resource DownloadMigrationPrepScript 'Microsoft.Compute/virtualMachines/extensions@2025-04-01' = {
+
+resource DownloadMigrationPrepScript  'Microsoft.Compute/virtualMachines/runCommands@2025-04-01' = {
   parent: hostVm
   name: 'downloadMigrationScript'
   location: location
   properties: {
-    publisher: 'Microsoft.Compute'
-    type: 'CustomScriptExtension'
-    typeHandlerVersion: '1.10'
-    autoUpgradeMinorVersion: true
-    settings: {
-      commandToExecute: 'powershell -ExecutionPolicy Unrestricted -Command "Start-Service BITS -ErrorAction SilentlyContinue; New-Item -ItemType Directory -Path C:\\Labfiles\\Lab07 -Force; Start-BitsTransfer -Source https://download.microsoft.com/download/A/B/E/ABE61299-7626-4902-93C1-631B19DBD106/MicrosoftAzureMigrate-Hyper-V.ps1 -Destination C:\\Labfiles\\Lab07\\MicrosoftAzureMigrate-Hyper-V.ps1"'
+    source: {
+      script: 'Start-Service BITS -ErrorAction SilentlyContinue; New-Item -ItemType Directory -Path C:\\Labfiles\\Lab07 -Force; Start-BitsTransfer -Source https://download.microsoft.com/download/A/B/E/ABE61299-7626-4902-93C1-631B19DBD106/MicrosoftAzureMigrate-Hyper-V.ps1 -Destination C:\\Labfiles\\Lab07\\MicrosoftAzureMigrate-Hyper-V.ps1'
     }
   }
 }
