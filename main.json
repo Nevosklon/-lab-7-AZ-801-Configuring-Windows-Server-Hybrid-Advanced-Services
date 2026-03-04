@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.41.2.15936",
-      "templateHash": "10444307060392883702"
+      "templateHash": "5792705444979206979"
     }
   },
   "parameters": {
@@ -418,8 +418,7 @@
         }
       },
       "dependsOn": [
-        "[resourceId('Microsoft.Compute/virtualMachines', parameters('HostVirtualMachineName'))]",
-        "[resourceId('Microsoft.Compute/virtualMachines/extensions', parameters('HostVirtualMachineName'), 'InstallWindowsFeatures')]"
+        "[resourceId('Microsoft.Compute/virtualMachines', parameters('HostVirtualMachineName'))]"
       ]
     },
     {
