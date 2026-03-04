@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.41.2.15936",
-      "templateHash": "16348232174739566224"
+      "templateHash": "10444307060392883702"
     }
   },
   "parameters": {
@@ -403,7 +403,8 @@
       "dependsOn": [
         "[resourceId('Microsoft.Resources/deployments', 'createNic1')]",
         "[resourceId('Microsoft.Resources/deployments', 'createNic2')]",
-        "[resourceId('Microsoft.Compute/virtualMachines', parameters('HostVirtualMachineName'))]"
+        "[resourceId('Microsoft.Compute/virtualMachines', parameters('HostVirtualMachineName'))]",
+        "[resourceId('Microsoft.Compute/virtualMachines/extensions', parameters('HostVirtualMachineName'), 'InstallWindowsFeatures')]"
       ]
     },
     {
@@ -417,7 +418,8 @@
         }
       },
       "dependsOn": [
-        "[resourceId('Microsoft.Compute/virtualMachines', parameters('HostVirtualMachineName'))]"
+        "[resourceId('Microsoft.Compute/virtualMachines', parameters('HostVirtualMachineName'))]",
+        "[resourceId('Microsoft.Compute/virtualMachines/extensions', parameters('HostVirtualMachineName'), 'InstallWindowsFeatures')]"
       ]
     },
     {
