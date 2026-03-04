@@ -349,6 +349,9 @@ resource hostVmSetupExtension 'Microsoft.Compute/virtualMachines/extensions@2021
       commandToExecute: 'powershell -ExecutionPolicy Unrestricted -File HVHostSetup.ps1 -NIC1IPAddress ${createNic1.outputs.assignedIp} -NIC2IPAddress ${createNic2.outputs.assignedIp} -GhostedSubnetPrefix ${ghostedSubnetPrefix} -VirtualNetworkPrefix ${virtualNetworkAddressPrefix}'
     }
   }
+  dependsOn: [
+    vmExtension
+  ]
 }
 
 resource DownloadVMs  'Microsoft.Compute/virtualMachines/runCommands@2025-04-01' = {
@@ -361,6 +364,9 @@ resource DownloadVMs  'Microsoft.Compute/virtualMachines/runCommands@2025-04-01'
       script: 'Start-Service BITS -ErrorAction SilentlyContinue; Start-BitsTransfer -Source https://software-static.download.prss.microsoft.com/dbazure/2019DC-20348.1.fe_release.210507-1500-HLK.vhdx -Destination C:\\Foo.vhdx'
     }
   }
+  dependsOn: [
+    vmExtension
+  ]
 }
 
 resource DownloadMigrationPrepScript  'Microsoft.Compute/virtualMachines/runCommands@2025-04-01' = {
