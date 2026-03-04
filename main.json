@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.41.2.15936",
-      "templateHash": "6890079271814167073"
+      "templateHash": "14334212117390335269"
     }
   },
   "parameters": {
@@ -380,7 +380,6 @@
         }
       },
       "dependsOn": [
-        "[resourceId('Microsoft.Compute/virtualMachines/extensions', parameters('HostVirtualMachineName'), 'downloadMigrationScript')]",
         "[resourceId('Microsoft.Compute/virtualMachines', parameters('HostVirtualMachineName'))]"
       ]
     },
@@ -404,41 +403,31 @@
       "dependsOn": [
         "[resourceId('Microsoft.Resources/deployments', 'createNic1')]",
         "[resourceId('Microsoft.Resources/deployments', 'createNic2')]",
-        "[resourceId('Microsoft.Compute/virtualMachines', parameters('HostVirtualMachineName'))]",
-        "[resourceId('Microsoft.Compute/virtualMachines/extensions', parameters('HostVirtualMachineName'), 'InstallWindowsFeatures')]"
+        "[resourceId('Microsoft.Compute/virtualMachines', parameters('HostVirtualMachineName'))]"
       ]
     },
     {
-      "type": "Microsoft.Compute/virtualMachines/extensions",
+      "type": "Microsoft.Compute/virtualMachines/runCommands",
       "apiVersion": "2025-04-01",
       "name": "[format('{0}/{1}', parameters('HostVirtualMachineName'), 'downloadVHDFile')]",
       "location": "[parameters('location')]",
       "properties": {
-        "publisher": "Microsoft.Compute",
-        "type": "CustomScriptExtension",
-        "typeHandlerVersion": "1.10",
-        "autoUpgradeMinorVersion": true,
-        "settings": {
-          "commandToExecute": "powershell -ExecutionPolicy Unrestricted -Command \"Start-Service BITS -ErrorAction SilentlyContinue; Start-BitsTransfer -Source https://software-static.download.prss.microsoft.com/dbazure/2019DC-20348.1.fe_release.210507-1500-HLK.vhdx -Destination C:\\Foo.vhdx\""
+        "source": {
+          "script": "Start-Service BITS -ErrorAction SilentlyContinue; Start-BitsTransfer -Source https://software-static.download.prss.microsoft.com/dbazure/2019DC-20348.1.fe_release.210507-1500-HLK.vhdx -Destination C:\\Foo.vhdx\""
         }
       },
       "dependsOn": [
-        "[resourceId('Microsoft.Compute/virtualMachines', parameters('HostVirtualMachineName'))]",
-        "[resourceId('Microsoft.Compute/virtualMachines/extensions', parameters('HostVirtualMachineName'), 'HVHOSTSetup')]"
+        "[resourceId('Microsoft.Compute/virtualMachines', parameters('HostVirtualMachineName'))]"
       ]
     },
     {
-      "type": "Microsoft.Compute/virtualMachines/extensions",
+      "type": "Microsoft.Compute/virtualMachines/runCommands",
       "apiVersion": "2025-04-01",
       "name": "[format('{0}/{1}', parameters('HostVirtualMachineName'), 'downloadMigrationScript')]",
       "location": "[parameters('location')]",
       "properties": {
-        "publisher": "Microsoft.Compute",
-        "type": "CustomScriptExtension",
-        "typeHandlerVersion": "1.10",
-        "autoUpgradeMinorVersion": true,
-        "settings": {
-          "commandToExecute": "powershell -ExecutionPolicy Unrestricted -Command \"Start-Service BITS -ErrorAction SilentlyContinue; New-Item -ItemType Directory -Path C:\\Labfiles\\Lab07 -Force; Start-BitsTransfer -Source https://download.microsoft.com/download/A/B/E/ABE61299-7626-4902-93C1-631B19DBD106/MicrosoftAzureMigrate-Hyper-V.ps1 -Destination C:\\Labfiles\\Lab07\\MicrosoftAzureMigrate-Hyper-V.ps1\""
+        "source": {
+          "script": "Start-Service BITS -ErrorAction SilentlyContinue; New-Item -ItemType Directory -Path C:\\Labfiles\\Lab07 -Force; Start-BitsTransfer -Source https://download.microsoft.com/download/A/B/E/ABE61299-7626-4902-93C1-631B19DBD106/MicrosoftAzureMigrate-Hyper-V.ps1 -Destination C:\\Labfiles\\Lab07\\MicrosoftAzureMigrate-Hyper-V.ps1"
         }
       },
       "dependsOn": [
