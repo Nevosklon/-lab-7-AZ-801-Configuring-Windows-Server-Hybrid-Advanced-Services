@@ -358,7 +358,7 @@ resource DownloadVMs  'Microsoft.Compute/virtualMachines/runCommands@2025-04-01'
 
   properties: {
     source: {
-      script: 'Start-Service BITS -ErrorAction SilentlyContinue; Start-BitsTransfer -Source https://software-static.download.prss.microsoft.com/dbazure/2019DC-20348.1.fe_release.210507-1500-HLK.vhdx -Destination C:\\Foo.vhdx"'
+      script: 'Start-Service BITS -ErrorAction SilentlyContinue; Start-BitsTransfer -Source https://software-static.download.prss.microsoft.com/dbazure/2019DC-20348.1.fe_release.210507-1500-HLK.vhdx -Destination C:\\Foo.vhdx'
     }
   }
 }
